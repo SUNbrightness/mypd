@@ -1,0 +1,14 @@
+{
+	"pluginName": "mypd",
+	"description": "我的第一个uTools插件",
+	"main": "dist/index.html",
+	"version": "0.0.1",
+    "logo":"dist/favicon.png",
+	"features": [
+		{
+		  "code": "mypd",
+		  "explain": "mypd",
+			"cmds":["mypd", "pd"]
+		}
+	]
+}
