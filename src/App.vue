@@ -2,8 +2,7 @@
   <div id="app">
      <crypto-key-config v-if="pageIndex==0" />
      <!-- 根据不同设备选择不同场景 -->
-     <index v-if="showIndex==1" />
-     <phone v-if="showIndex==2" />
+     <index v-show="this.pageIndex==1" />
      
      <web-dav-config v-if="pageIndex==2" />
   </div>
@@ -11,8 +10,7 @@
 <script>
 import CryptoKeyConfig from '@/components/CryptoKeyConfig.vue';
 import WebDavConfig from '@/components/WebDavConfig.vue';
-import index from '@/components/pc/Index.vue';
-import phone from '@/components/phone/Index.vue';
+import Index from '@/components/Index.vue';
 import { EventBus } from '@/common/EventBus.js';
 
 export default {
@@ -20,6 +18,7 @@ export default {
   components: {
     CryptoKeyConfig,
     WebDavConfig,
+    Index,
   },
   data() {
      return {
@@ -27,28 +26,20 @@ export default {
      };
    },
    computed:{
-       showIndex:function(){
-           if(this.pageIndex!=1){
-               return 0;
-           }
-           if(navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)){
-               return 2;
-           }else {
-           return 1;
-           }
-       }
    },
-  created() {
+   
+  async created() {
       //listener
-    EventBus.$on('toPage', index => {
+    this.EventBus.$on('toPage', index => {
       this.pageIndex = index;
     });
     
     try{
-        this.wclient.init();
+        await this.wclient.init();
     }catch(error){
+        console.log("填写webdav信息");
         //初始化如果出现异常就去重新填写webdav信息
-        this.pageIndex = 3;
+        this.pageIndex = 2;
     }
   },
 }

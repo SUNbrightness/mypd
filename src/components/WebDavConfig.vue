@@ -15,11 +15,13 @@
 </template>
 
 <script>
+    import MyMixin from './MyMixin.vue';
     import {
         EventBus
     } from '@/common/EventBus.js';
     export default {
         name: 'CryptoKeyConfig',
+        mixins:[MyMixin],
         data() {
             return {
                 url: '',
@@ -28,6 +30,7 @@
             }
         },
         methods: {
+            
             async onSubmit() {
 
                 if (this.url.indexOf("http") == -1) {
@@ -35,12 +38,16 @@
                     return;
                 }
                 //初始化  webDavclient 并且获取json数据
-                var data = await this.wclient.init();
-                var wdata = JSON.parse(data);
-                EventBus.$emit('wdata', wdata);
+                var data = await this.wclient.init({
+                    url:this.url,
+                    username:this.username,
+                    password:this.password
+                });
+                var wdata = data;
+                this.setWdata(wdata);
                 
                 
-                this.$notify("webDav ok");
+                this.$notify({ type: 'success', message: "webDav ok" });
                 
                 //持久化webdav信息
                 localStorage.setItem(window.k.wurl,this.url);
