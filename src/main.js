@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import App from './App.vue'
 import store from './store'
-import { Form,Field,Button,NavBar,Notify,Search,Sidebar, SidebarItem,Col, Row,SwipeCell,Cell, CellGroup } from 'vant';
+import { Form,Field,Button,NavBar,Notify,
+Search,Sidebar, SidebarItem,Col,
+ Row,SwipeCell,Cell, CellGroup,Icon,Dialog } from 'vant';
+ 
 Vue.use(NavBar);
 Vue.use(Field);
 Vue.use(Button);
@@ -15,6 +18,8 @@ Vue.use(Row);
 Vue.use(SwipeCell);
 Vue.use(Cell);
 Vue.use(CellGroup);
+Vue.use(Icon);
+Vue.use(Dialog);
 // 全局注册
 import webDav from '@/common/webDav.js';
 Vue.use(webDav);

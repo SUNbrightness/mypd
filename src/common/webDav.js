@@ -67,7 +67,7 @@ const plugin = {
           },
           put: function() {
               try {
-                  myClient.client.putFileContents(window.k.wFileName, JSON.stringify(store.wdata));
+                  myClient.client.putFileContents(window.k.wFileName, JSON.stringify(store.getters.wdata));
               } catch (e) {
                   Notify({
                       type: 'danger',
