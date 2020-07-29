@@ -2,7 +2,7 @@
   <div id="app">
      <crypto-key-config v-if="pageIndex==0" />
      <!-- 根据不同设备选择不同场景 -->
-     <index v-show="this.pageIndex==1" />
+     <index v-if="this.pageIndex==1" />
      
      <web-dav-config v-if="pageIndex==2" />
   </div>

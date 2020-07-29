@@ -9,8 +9,8 @@
             <div class="van-hairline--surround" style="width: 30vw;">
                 <user-list :this-folder="thisFolder" @toUserForm="thisForm=$event" />
             </div>
-            <div class="van-hairline--surround">
-          <user-form :this-form="thisForm" :this-folder="thisFolder" />
+            <div class="van-hairline--surround" style="width: 40vw;">
+                <user-form :key="formKey" :this-form="thisForm" :this-folder="thisFolder" @upthisForm="thisForm=$event" />
             </div>
         </div>
     </div>
@@ -25,43 +25,33 @@
     import UserList from './UserList.vue';
     import UserForm from './UserForm.vue';
     export default {
-
         name: '',
-
         components: {
             Folder,
             UserList,
             UserForm
         },
-
         mixins: [MyMixin],
-
         props: {},
-
         data() {
             return {
                 searchValue: '',
                 thisFolder: 0,
-                thisForm:0,
+                thisForm:-1,
+                //保证form的反复创建，拒绝污染
+                formKey:'213123kljlk13'
             }
         },
         computed: {},
-        watch: {//切换文件夹后及时刷新form
+        watch: {
+            //保证form的反复创建，拒绝污染
             thisFolder:function(){
-               if(!this.wlist[this.thisFolder].list||this.wlist[this.thisFolder].list.length==0){
-                   this.thisForm=-1;
-               }else{
-                   this.thisForm=0;
-               }
-            },},
-
-        created() {},
-        mounted() {},
-
-        destroyed() {},
-
-        methods: {
-        },
+               this.formKey = +new Date()+'';
+            },
+            thisForm:function(){
+                this.formKey = +new Date()+'';
+            }
+            },
     };
 </script>
 

@@ -84,6 +84,10 @@
               this.notifyOk();
           },
           add(){
+              if(!this.addValue){
+                  return;
+              }
+              
               this.wlist.push({folder:this.addValue,list:[]});
               this.wclient.put();
               this.addValue='';
@@ -103,11 +107,19 @@
               this.cellShow.splice(index,1,false);
           },
           async del(index,item){
+              //二次确认
               var nook = await this.affirm();
               if(nook)return;
-              this.wlist.splice(index,1,);
-              this.wclient.put();
-              this.notifyOk();
+              
+              //判断是否文件夹下有账号
+              if(this.wlist[this.thisIndex].list==null||this.wlist[this.thisIndex].list.length==0){
+                  this.wlist.splice(index,1,);
+                  this.wclient.put();
+                  this.notifyOk();
+              }else{
+                  this.notifyNo("该文件夹下还有账号不能删除 ");
+              }
+              
           }
       },
     };

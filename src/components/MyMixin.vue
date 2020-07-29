@@ -17,8 +17,11 @@
                 'setWdata',
                  'setWlist'
             ]),
-            notifyOk(){
-                this.$notify({ type: 'success', message: "ok" });
+            notifyOk(mes="ok"){
+                this.$notify({ type: 'success', message: mes });
+            },notifyNo(mes="error"){
+                
+                this.$notify({ type: 'danger', message: mes });
             },
             affirm: function (content = "是否要继续进行该操作", title = "") {
                 var that = this;

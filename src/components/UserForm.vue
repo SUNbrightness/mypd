@@ -1,44 +1,69 @@
 <template>
     <div>
         <van-form autocomplete="off" disableautocomplete @submit="onSubmit">
-            <van-field v-model="userForm.title" name="标题" label="标题" placeholder="标题" :rules="[{ required: true, message: '请填写标题' }]"
+            <van-field v-model="userForm.title" name="标题" label="标题" placeholder="标题" :rules="[{ required: true, message: '必须填写一个标题' }]"
                 autocomplete="off" disableautocomplete
 />
 
-            <van-field v-model="userForm.username" name="用户名" label="用户名" placeholder="用户名" :rules="[{ required: true, message: '请填写用户名' }]"
-                autocomplete="off" disableautocomplete
+            <van-field v-model="userForm.username" type="text" name="用户名" label="用户名" placeholder="用户名" autocomplete="off"
+                disableautocomplete
 />
-            <van-field v-model="userForm.password" type="password" name="密码" label="密码" placeholder="密码" :rules="[{ required: true, message: '请填写密码' }]"
-                autocomplete="off" disableautocomplete
-/>
-            <div style="margin: 16px;" />
-        </van-form>
 
-        <van-field v-model="userForm.explain" rows="1" autosize label="请输入备注" type="textarea" placeholder="请输入备注"
-            autocomplete="off" disableautocomplete
+
+
+            <!-- 注意这个不是将来要提交的值，这个只是一个临时的明文 -->
+            <van-field v-model="pwdWrite" :type="showPwd?'text':'password'" name="密码" label="密码" placeholder="密码"
+                autocomplete="off" disableautocomplete
+>
+                <template #right-icon>
+                    <van-icon class="cur" :name="showPwd?'eye':'closed-eye'" @click="showPwd=!showPwd" />
+                </template>
+                <template #button>
+                    <van-button style="margin-left: 10px;" size="small" type="primary" native-type="button" @click="doCopy()">
+                        copy
+                    </van-button>
+                </template>
+            </van-field>
+
+            <van-field v-model="userForm.url" type="text" name="url" label="url" placeholder="url" autocomplete="off"
+                disableautocomplete
 />
-        <div style="margin: 16px;">
+
+            <van-field v-model="userForm.explain" rows="2" type="textarea" autosize label="备注" placeholder="请输入备注"
+                autocomplete="off" disableautocomplete
+/>
+
+            <van-button round block type="warning" native-type="button" style="margin-bottom: 10px;">
+                生成随机密码
+            </van-button>
             <van-button round block type="info" native-type="submit">
                 提交
             </van-button>
-        </div>
+        </van-form>
+        <random-pd>122</random-pd>
+        
+
     </div>
 
 </template>
-
 <script>
+    
+    import RandomPd from './RandomPd.vue';
+    import cypt from '@/common/cypt.js';
     //拷贝对象
-    function Mclone(obj){
+    function Mclone(obj) {
         return JSON.parse(JSON.stringify(obj));
     }
-    
-    
+
+
     import MyMixin from './MyMixin.vue';
     export default {
 
         name: '',
 
-        components: {},
+        components: {RandomPd,
+        
+        },
 
         mixins: [MyMixin],
 
@@ -49,59 +74,89 @@
             },
             thisFolder: {
                 type: Number,
-                default:0
+                default: 0
             }
         },
-
         data() {
             return {
-                userForm: this.getNullForm()
+                userForm: this.getNullForm(),
+                pwdWrite: '',
+                //控制小眼睛，隐藏密码还是显示 
+                showPwd: false,
             }
         },
-
         computed: {},
-
         watch: {
-            thisForm:function(){
-                //-1为新增
-                if(this.thisForm==-1){
-                    this.userForm=this.getNullForm();
-                }else{
-                    try{
-                        var formData = this.wlist[this.thisFolder].list[this.thisForm];
-                        this.userForm= Mclone(formData);
-                    }catch(e){
-                       this.userForm=this.getNullForm();
-                    }
-                }
-            }
+            
         },
 
-        created() {},
+        created() {
+            this.initForm();
+        },
 
         mounted() {
-            
+
         },
 
         destroyed() {},
 
         methods: {
-            onSubmit() {
-
+            //判断是该新增还是修改，并拷贝一个对象
+            initForm:function(){
+              //-1为新增
+              if (this.thisForm == -1) {
+                  this.userForm = this.getNullForm();
+              } else {
+                  try {
+                      var formData = this.wlist[this.thisFolder].list[this.thisForm];
+                      this.userForm = Mclone(formData);
+                  } catch (e) {
+                      this.userForm = this.getNullForm();
+                  }
+              }
+                
+                 this.pwdWrite = cypt.decrypt(this.userForm.password);
             },
-            getNullForm(){
+            doCopy: function() {
+                var that = this;
+                this.$copyText(this.pwdWrite).then(function(e) {
+                    that.notifyOk();
+                }, function(e) {
+                    that.notifyNo();
+                })
+            },
+            onSubmit() {
+                //将显示的明文加密加入form
+                this.userForm.password = cypt.encrypt(this.pwdWrite);
+
+                //新增
+                if (this.thisForm == -1) {
+                    this.wlist[this.thisFolder].list.push(this.userForm);
+                    //新增完成，让userlist 选中新增的form
+                    this.$emit('upthisForm', this.wlist[this.thisFolder].list.length - 1);
+                } else {
+                    //修改
+                    this.wlist[this.thisFolder].list[this.thisForm] = this.userForm;
+                }
+                this.wclient.put();
+                this.notifyOk();
+            },
+            getNullForm() {
                 return {
-                           title: '',
-                           username: '',
-                           password: '',
-                           url: '',
-                           explain: ''
-                       };
-            }
+                    title: '',
+                    username: '',
+                    password: '',
+                    url: '',
+                    explain: ''
+                };
+            },
         },
 
     };
 </script>
 
 <style>
+    .cur{
+        cursor:pointer;
+    }
 </style>

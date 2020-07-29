@@ -1,7 +1,7 @@
 <template>
     <div>
         <van-cell-group>
-                <van-cell v-for="(item,index) in uList" :key="'userList'+index" :style="cellStyle(index)" :title="item.username" @click="toUserForm(index)">
+                <van-cell v-for="(item,index) in uList" :key="'userList'+index" :style="cellStyle(index)" :title="item.title +' -> '+item.username" @click="toUserForm(index)">
                     <!-- 使用 right-icon 插槽来自定义右侧图标 -->
                     <template #right-icon>
                         <van-icon name="delete" @click="del(index,item)" />
@@ -64,7 +64,10 @@
 
         watch: {},
 
-        created() {},
+        created() {
+            //用于一开始默认选中第一个
+            this.toUserForm(0);
+        },
 
         mounted() {},
 
@@ -83,25 +86,14 @@
                 this.notifyOk();
             },
             add() {
+                //新增了这边先不选中菜单
+                this.thisIndex = -1;
                this.$emit('toUserForm',-1);
-            },
-            edit(index, item) {
-                this.editValue = item.folder;
-                for (var i = 0; i < this.wlist.length; i++) {
-                    this.cellShow.splice(i, 1, true);
-                }
-                //获取焦点
-                let key = 'folder-van-field' + index;
-                var el = document.getElementById(key);
-                var t = el.getElementsByTagName("input");
-                el.focus();
-                el.select();
-                this.cellShow.splice(index, 1, false);
             },
             async del(index, item) {
                 var nook = await this.affirm();
                 if (nook) return;
-                this.wlist.splice(index, 1, );
+                this.wlist[this.thisFolder].list.splice(index, 1, );
                 this.wclient.put();
                 this.notifyOk();
             }

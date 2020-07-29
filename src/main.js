@@ -29,7 +29,9 @@ Vue.prototype.md5=md5;
 import { EventBus } from '@/common/EventBus.js';
 Vue.prototype.EventBus=EventBus;
 
-
+//复制到剪切板
+import VueClipboard from 'vue-clipboard2'
+Vue.use(VueClipboard)
 
 
 //加载全局常量
