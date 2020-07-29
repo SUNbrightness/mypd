@@ -27,6 +27,12 @@
 </template>
 
 <script>
+    //拷贝对象
+    function Mclone(obj){
+        return JSON.parse(JSON.stringify(obj));
+    }
+    
+    
     import MyMixin from './MyMixin.vue';
     export default {
 
@@ -63,7 +69,7 @@
                 }else{
                     try{
                         var formData = this.wlist[this.thisFolder].list[this.thisForm];
-                        this.userForm= formData;
+                        this.userForm= Mclone(formData);
                     }catch(e){
                        this.userForm=this.getNullForm();
                     }

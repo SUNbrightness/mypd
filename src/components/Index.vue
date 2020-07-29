@@ -10,7 +10,7 @@
                 <user-list :this-folder="thisFolder" @toUserForm="thisForm=$event" />
             </div>
             <div class="van-hairline--surround">
-          <user-form :user-form="thisForm" :this-folder="thisFolder" />
+          <user-form :this-form="thisForm" :this-folder="thisFolder" />
             </div>
         </div>
     </div>
@@ -34,7 +34,7 @@
             UserForm
         },
 
-        mixins: [],
+        mixins: [MyMixin],
 
         props: {},
 
@@ -45,10 +45,15 @@
                 thisForm:0,
             }
         },
-
         computed: {},
-
-        watch: {},
+        watch: {//切换文件夹后及时刷新form
+            thisFolder:function(){
+               if(!this.wlist[this.thisFolder].list||this.wlist[this.thisFolder].list.length==0){
+                   this.thisForm=-1;
+               }else{
+                   this.thisForm=0;
+               }
+            },},
 
         created() {},
         mounted() {},
