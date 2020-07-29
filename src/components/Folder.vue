@@ -2,7 +2,7 @@
     <div>
         <van-cell-group>
          <template v-for="(item,index) in wlist">
-            <van-cell v-show="cellShowComputed(index)" :key="'folder'+index" :style="cellStyle(index)" :title="item.folder">
+            <van-cell v-show="cellShowComputed(index)" :key="'folder'+index" :style="cellStyle(index)" :title="item.folder" @click="toUserList(index)">
               <!-- 使用 right-icon 插槽来自定义右侧图标 -->
               <template #right-icon>
                 <van-icon name="edit" @click="edit(index,item)" />
@@ -24,7 +24,8 @@
         
         <van-field v-model="addValue" placeholder="新文件夹名称" />
         
-        <center><van-button icon="plus" type="primary" native-type="button" @click="add()" /></center>
+        <center>
+            <van-button icon="plus" type="primary" native-type="button" @click="add()" /></center>
         </van-cell-group>
     </div>
     </template>
@@ -70,6 +71,11 @@
       destroyed() {},
     
       methods: {
+          toUserList(index){
+              this.thisIndex = index;
+              this.$emit('toUserList',index);
+          }
+          ,
           save(){
             this.wclient.put();
               for (var i = 0; i < this.wlist.length; i++) {

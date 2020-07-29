@@ -4,15 +4,13 @@
         <!-- 全边框 -->
         <div class="flex-box">
             <div class="van-hairline--surround" style="width: 30vw;">
-              
-              <folder :list="list" />
-                
+                <folder @toUserList="thisFolder=$event" />
+            </div>
+            <div class="van-hairline--surround" style="width: 30vw;">
+                <user-list :this-folder="thisFolder" @toUserForm="thisForm=$event" />
             </div>
             <div class="van-hairline--surround">
-                123
-            </div>
-            <div class="van-hairline--surround">
-                123
+          <user-form :user-form="thisForm" :this-folder="thisFolder" />
             </div>
         </div>
     </div>
@@ -24,11 +22,17 @@
         EventBus
     } from '@/common/EventBus.js';
     import Folder from './Folder.vue';
+    import UserList from './UserList.vue';
+    import UserForm from './UserForm.vue';
     export default {
 
         name: '',
 
-        components: {Folder},
+        components: {
+            Folder,
+            UserList,
+            UserForm
+        },
 
         mixins: [],
 
@@ -37,8 +41,8 @@
         data() {
             return {
                 searchValue: '',
-                list: [],
-                activeKey: 0,
+                thisFolder: 0,
+                thisForm:0,
             }
         },
 
@@ -46,19 +50,13 @@
 
         watch: {},
 
-        created() {
-        },
+        created() {},
         mounted() {},
 
         destroyed() {},
 
         methods: {
-            setData() {
-                // this.setWlist(this.list);
-                this.wclient.put();
-            }
         },
-
     };
 </script>
 
