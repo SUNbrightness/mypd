@@ -33,36 +33,39 @@
                 autocomplete="off" disableautocomplete
 />
 
-            <van-button round block type="warning" native-type="button" style="margin-bottom: 10px;">
+            <van-button round block type="warning" native-type="button" style="margin-bottom: 10px;" @click="randomShow=true">
                 生成随机密码
             </van-button>
             <van-button round block type="info" native-type="submit">
                 提交
             </van-button>
         </van-form>
-        <random-pd>122</random-pd>
+        
+        <van-dialog v-model="randomShow" title="随机密码生成" :show-confirm-button="false"
+        :close-on-click-overlay="true"
+        >
+          <random-pd @useRandomPd="pwdWrite=$event;randomShow=false" />
+        </van-dialog>
+        
         
 
     </div>
 
 </template>
 <script>
-    
-    import RandomPd from './RandomPd.vue';
+    import { Dialog } from 'vant';
+    import RandomPd from '@/components/RandomPd.vue';
     import cypt from '@/common/cypt.js';
-    //拷贝对象
-    function Mclone(obj) {
-        return JSON.parse(JSON.stringify(obj));
-    }
+    
 
 
-    import MyMixin from './MyMixin.vue';
+    import MyMixin from '@/components/MyMixin.vue';
     export default {
 
         name: '',
 
         components: {RandomPd,
-        
+         [Dialog.Component.name]: Dialog.Component,
         },
 
         mixins: [MyMixin],
@@ -75,7 +78,8 @@
             thisFolder: {
                 type: Number,
                 default: 0
-            }
+            },
+            
         },
         data() {
             return {
@@ -83,6 +87,7 @@
                 pwdWrite: '',
                 //控制小眼睛，隐藏密码还是显示 
                 showPwd: false,
+                randomShow:false
             }
         },
         computed: {},
@@ -109,7 +114,7 @@
               } else {
                   try {
                       var formData = this.wlist[this.thisFolder].list[this.thisForm];
-                      this.userForm = Mclone(formData);
+                      this.userForm = this.Mclone(formData);
                   } catch (e) {
                       this.userForm = this.getNullForm();
                   }

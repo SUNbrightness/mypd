@@ -13,7 +13,8 @@
 </template>
 
 <script>
-    import MyMixin from './MyMixin.vue';
+   var md5 = require('md5');
+    import MyMixin from '@/components/MyMixin.vue';
     export default {
         name: 'CryptoKeyConfig',
         mixins:[MyMixin],
@@ -28,7 +29,7 @@
         methods: {
             onSubmit() {
                 //md5 + 盐加密
-                var cryptoKey = this.md5(this.password + window.k.cryptoKey);
+                var cryptoKey = md5(this.password + window.k.cryptoKey);
                 //如果是第一次设置密码则直接设置
                 if (!this.wdata.key) {
                     this.wdata.key = cryptoKey;

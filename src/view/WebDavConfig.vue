@@ -15,13 +15,13 @@
 </template>
 
 <script>
-    import MyMixin from './MyMixin.vue';
+    import MyMixin from '@/components/MyMixin.vue';
     import {
         EventBus
     } from '@/common/EventBus.js';
     export default {
         name: 'CryptoKeyConfig',
-        mixins:[MyMixin],
+        mixins: [MyMixin],
         data() {
             return {
                 url: '',
@@ -30,30 +30,36 @@
             }
         },
         methods: {
-            
+
             async onSubmit() {
 
                 if (this.url.indexOf("http") == -1) {
-                    this.$notify({ type: 'danger', message: '地址格式不对!' });
+                    this.$notify({
+                        type: 'danger',
+                        message: '地址格式不对!'
+                    });
                     return;
                 }
                 //初始化  webDavclient 并且获取json数据
                 var data = await this.wclient.init({
-                    url:this.url,
-                    username:this.username,
-                    password:this.password
+                    url: this.url,
+                    username: this.username,
+                    password: this.password
                 });
                 var wdata = data;
                 this.setWdata(wdata);
-                
-                
-                this.$notify({ type: 'success', message: "webDav ok" });
-                
+
+
+                this.$notify({
+                    type: 'success',
+                    message: "webDav ok"
+                });
+
                 //持久化webdav信息
-                localStorage.setItem(window.k.wurl,this.url);
-                localStorage.setItem(window.k.wusername,this.username);
-                localStorage.setItem(window.k.wpassword,this.password);
-                
+                localStorage.setItem(window.k.wurl, this.url);
+                localStorage.setItem(window.k.wusername, this.username);
+                localStorage.setItem(window.k.wpassword, this.password);
+
                 EventBus.$emit('toPage', 0);
             }
         },

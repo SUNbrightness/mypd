@@ -31,7 +31,7 @@
     </template>
 
 <script>
- import MyMixin from './MyMixin.vue';
+ import MyMixin from '@/components/MyMixin.vue';
     export default {
     
       name: '',

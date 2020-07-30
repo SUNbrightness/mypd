@@ -7,15 +7,12 @@
                         <van-icon name="delete" @click="del(index,item)" />
                     </template>
                 </van-cell>
-            <center>
-                <van-button icon="plus" type="primary" native-type="button" @click="add()" />
-            </center>
         </van-cell-group>
     </div>
 </template>
 
 <script>
-    import MyMixin from './MyMixin.vue';
+    import MyMixin from '@/components/MyMixin.vue';
     export default {
 
         name: '',

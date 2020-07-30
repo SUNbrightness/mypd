@@ -3,7 +3,7 @@ import App from './App.vue'
 import store from './store'
 import { Form,Field,Button,NavBar,Notify,
 Search,Sidebar, SidebarItem,Col,
- Row,SwipeCell,Cell, CellGroup,Icon,Dialog } from 'vant';
+ Row,SwipeCell,Cell, CellGroup,Icon, } from 'vant';
  
 Vue.use(NavBar);
 Vue.use(Field);
@@ -19,13 +19,10 @@ Vue.use(SwipeCell);
 Vue.use(Cell);
 Vue.use(CellGroup);
 Vue.use(Icon);
-Vue.use(Dialog);
 // 全局注册
 import webDav from '@/common/webDav.js';
 Vue.use(webDav);
 
-var md5 = require('md5');
-Vue.prototype.md5=md5;
 import { EventBus } from '@/common/EventBus.js';
 Vue.prototype.EventBus=EventBus;
 

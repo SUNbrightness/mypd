@@ -8,9 +8,9 @@
   </div>
 </template>
 <script>
-import CryptoKeyConfig from '@/components/CryptoKeyConfig.vue';
-import WebDavConfig from '@/components/WebDavConfig.vue';
-import Index from '@/components/Index.vue';
+import CryptoKeyConfig from '@/view/CryptoKeyConfig.vue';
+import WebDavConfig from '@/view/WebDavConfig.vue';
+import Index from '@/view/Index.vue';
 import { EventBus } from '@/common/EventBus.js';
 
 export default {
