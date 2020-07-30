@@ -16,9 +16,6 @@
 
 <script>
     import MyMixin from '@/components/MyMixin.vue';
-    import {
-        EventBus
-    } from '@/common/EventBus.js';
     export default {
         name: 'CryptoKeyConfig',
         mixins: [MyMixin],
@@ -60,7 +57,7 @@
                 localStorage.setItem(window.k.wusername, this.username);
                 localStorage.setItem(window.k.wpassword, this.password);
 
-                EventBus.$emit('toPage', 0);
+                 this.$router.push('/');
             }
         },
 

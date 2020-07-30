@@ -41,7 +41,7 @@
                 }
                 //临时保存密码
                 sessionStorage.setItem(window.k.cryptoKey,cryptoKey);
-                this.EventBus.$emit('toPage', 1);
+                  this.$router.push('/index');
             }
         },
     };

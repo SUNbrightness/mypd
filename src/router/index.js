@@ -38,8 +38,8 @@ const routes = [
         props: (route) => route.query,
     },
     {
-        path: '/webdav',
-        name: 'webdav',
+        path: '/Web_dav_config',
+        name: 'WebDavConfig',
         component: () => import('../views/WebDavConfig.vue')
     },
     {
