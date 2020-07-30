@@ -1,6 +1,6 @@
 {
 	"pluginName": "mypd",
-	"description": "我的第一个uTools插件",
+	"description": "基于坚果云存储，跨平台密码管理",
 	"main": "dist/index.html",
 	"version": "0.0.1",
     "logo":"dist/favicon.png",
