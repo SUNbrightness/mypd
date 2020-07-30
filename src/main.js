@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import store from './store'
+import router from './router'
 import { Form,Field,Button,NavBar,Notify,
 Search,Sidebar, SidebarItem,Col,
  Row,SwipeCell,Cell, CellGroup,Icon, } from 'vant';
@@ -42,5 +43,6 @@ import '@/common/global.js';
 Vue.config.productionTip = false
 new Vue({
   store,
+  router,
   render: h => h(App)
 }).$mount('#app')

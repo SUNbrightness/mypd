@@ -1,49 +1,30 @@
 <template>
-  <div id="app">
-     <crypto-key-config v-if="pageIndex==0" />
-     <!-- 根据不同设备选择不同场景 -->
-     <index v-if="this.pageIndex==1" />
-     
-     <web-dav-config v-if="pageIndex==2" />
-  </div>
+    <div id="app">
+        <router-view />
+    </div>
 </template>
 <script>
-import CryptoKeyConfig from '@/view/CryptoKeyConfig.vue';
-import WebDavConfig from '@/view/WebDavConfig.vue';
-import Index from '@/view/Index.vue';
-import { EventBus } from '@/common/EventBus.js';
 
-export default {
-  name: 'App',
-  components: {
-    CryptoKeyConfig,
-    WebDavConfig,
-    Index,
-  },
-  data() {
-     return {
-       pageIndex: 0,
-     };
-   },
-   computed:{
-   },
-   
-  async created() {
-      //listener
-    this.EventBus.$on('toPage', index => {
-      this.pageIndex = index;
-    });
-    
-    try{
-        await this.wclient.init();
-    }catch(error){
-        console.log("填写webdav信息");
-        //初始化如果出现异常就去重新填写webdav信息
-        this.pageIndex = 2;
+    export default {
+        name: 'App',
+        components: {
+        },
+        data() {
+            return {
+            };
+        },
+        computed: {},
+
+        async created() {
+            try {
+                await this.wclient.init();
+            } catch (error) {
+                console.log("填写webdav信息");
+                //初始化如果出现异常就去重新填写webdav信息
+                this.$router.push('crypto_key');
+            }
+        },
     }
-  },
-}
-
 </script>
 
 <style>
