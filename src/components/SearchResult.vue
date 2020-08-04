@@ -51,7 +51,8 @@
         computed: {
             searchResult: function() {
                 let result = [];
-
+                if(!this.searchValue)return result;
+                
                 for (let findex in this.wlist) {
                     var folder = this.wlist[findex];
                     for (let uindex in folder.list) {
@@ -91,7 +92,8 @@
         methods: {
             toUserForm(index, item) {
                 this.thisIndex = index;
-                this.$emit('toUserForm',item)
+                //切换到指定的userForm组件
+                this.EventBus.$emit('toUserForm',item.uindex,item.findex);
             }
         },
 
@@ -101,6 +103,7 @@
 <style>
     .all-surround {
         padding-left: 10px;
+        padding-right: 10px;
     }
 
     .all-surround .van-row {

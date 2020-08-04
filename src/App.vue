@@ -21,7 +21,7 @@
             } catch (error) {
                 console.log("填写webdav信息");
                 //初始化如果出现异常就去重新填写webdav信息
-                this.$router.push('Web_dav_config');
+                this.$router.push('web_dav_config');
             }
         },
     }

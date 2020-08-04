@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import store from './store'
 import router from './router'
-import { Form,Field,Button,NavBar,Notify,
+import { Form,Field,Button,NavBar,Notify,Dialog,
 Search,Sidebar, SidebarItem,Col,
  Row,SwipeCell,Cell, CellGroup,Icon, } from 'vant';
  
@@ -11,6 +11,7 @@ Vue.use(Field);
 Vue.use(Button);
 Vue.use(Form);
 Vue.use(Notify);
+Vue.use(Dialog);
 Vue.use(Search);
 Vue.use(Sidebar);
 Vue.use(SidebarItem);

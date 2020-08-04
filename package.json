@@ -16,6 +16,7 @@
     "vue": "^2.6.11",
     "vue-clipboard2": "^0.3.1",
     "vue-router": "^3.3.4",
+    "vue-router-page-turning": "^1.2.9",
     "vuex": "^3.4.0",
     "webdav": "^3.3.0"
   },

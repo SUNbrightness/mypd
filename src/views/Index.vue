@@ -1,25 +1,24 @@
 <template>
     <div>
-        <van-search v-model="searchValue" placeholder="请输入搜索关键词" :clearable="false" @input="searchChange" />
+        <!-- 搜索的规则：账号中存在任何字符串 就展开搜索结果 -->
+        <van-search v-model="searchValue" placeholder="请输入搜索账号" @input="searchChange" />
         <div class="flex-box">
             
-            <!-- 搜索的规则：有任何字符串就展开搜索结果 -->
+            
             <template v-if="!searchShow">
                 <div class="van-hairline--surround" style="width: 30vw;">
-                    <folder @toUserList="thisFolder=$event" />
+                    <folder />
                 </div>
                 <div class="van-hairline--surround" style="width: 30vw;">
-                    <user-list :this-folder="thisFolder" @toUserForm="thisForm=$event" />
+                    <user-list :this-folder="thisFolder" />
                 </div>
             </template>
             
-            <search-result v-if="searchShow" :search-value="searchValue" style="width: 60vw;" 
-            @toUserForm="thisForm=parseInt($event.uindex);thisFolder=parseInt($event.findex)"
-/>
+            <search-result v-if="searchShow" :search-value="searchValue" style="width: 60vw;" />
             
             
             <div class="van-hairline--surround" style="width: 40vw;">
-                <user-form :key="formKey" :this-form="thisForm" :this-folder="thisFolder" @upthisForm="thisForm=$event" />
+                <user-form :key="formKey" :this-form="thisForm" :this-folder="thisFolder" />
             </div>
         </div>
     </div>
@@ -60,10 +59,25 @@
             //保证form的反复创建，拒绝污染
             thisFolder: function() {
                 this.formKey = +new Date() + '';
+                //选中第一个user_list
+                this.thisForm = 0;
             },
             thisForm: function() {
                 this.formKey = +new Date() + '';
             }
+        },
+        created() {
+            //监听事件
+            this.EventBus.$on('toUserList',target=>{
+               this.thisFolder = target;
+            });
+            
+            this.EventBus.$on('toUserForm',(uindex,findex)=>{
+               this.thisForm = parseInt(uindex);
+               if(findex){
+                   this.thisFolder = parseInt(findex);
+               }
+            });
         },
         methods: {
             searchChange() {

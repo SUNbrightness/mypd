@@ -19,7 +19,7 @@
                     <van-icon class="cur" :name="showPwd?'eye':'closed-eye'" @click="showPwd=!showPwd" />
                 </template>
                 <template #button>
-                    <van-button style="margin-left: 10px;" size="small" type="primary" native-type="button" @click="doCopy()">
+                    <van-button style="margin-left: 10px;" size="small" type="primary" native-type="button" @click="doCopy(pwdWrite)">
                         copy
                     </van-button>
                 </template>
@@ -27,7 +27,13 @@
 
             <van-field v-model="userForm.url" type="text" name="url" label="url" placeholder="url" autocomplete="off"
                 disableautocomplete
-/>
+>
+                <template #button>
+                    <van-button style="margin-left: 10px;" size="small" type="primary" native-type="button" @click="doCopy(userForm.url)">
+                        copy
+                    </van-button>
+                </template>
+                </van-field>
 
             <van-field v-model="userForm.explain" rows="2" type="textarea" autosize label="备注" placeholder="请输入备注"
                 autocomplete="off" disableautocomplete
@@ -53,6 +59,7 @@
 
 </template>
 <script>
+    
     import { Dialog } from 'vant';
     import RandomPd from '@/components/RandomPd.vue';
     import cypt from '@/common/cypt.js';
@@ -62,7 +69,7 @@
     import MyMixin from '@/components/MyMixin.vue';
     export default {
 
-        name: '',
+        name: 'UserForm',
 
         components: {RandomPd,
          [Dialog.Component.name]: Dialog.Component,
@@ -72,11 +79,9 @@
 
         props: {
             thisForm: {
-                type: Number,
                 default: 0
             },
             thisFolder: {
-                type: Number,
                 default: 0
             },
             
@@ -96,6 +101,7 @@
         },
 
         created() {
+            console.log("init")
             this.initForm();
         },
 
@@ -122,9 +128,9 @@
                 
                  this.pwdWrite = cypt.decrypt(this.userForm.password);
             },
-            doCopy: function() {
+            doCopy: function(copyValue) {
                 var that = this;
-                this.$copyText(this.pwdWrite).then(function(e) {
+                this.$copyText(copyValue).then(function(e) {
                     that.notifyOk();
                 }, function(e) {
                     that.notifyNo();
@@ -138,7 +144,7 @@
                 if (this.thisForm == -1) {
                     this.wlist[this.thisFolder].list.push(this.userForm);
                     //新增完成，让userlist 选中新增的form
-                    this.$emit('upthisForm', this.wlist[this.thisFolder].list.length - 1);
+                    this.EventBus.$emit('toUserForm', this.wlist[this.thisFolder].list.length - 1);
                 } else {
                     //修改
                     this.wlist[this.thisFolder].list[this.thisForm] = this.userForm;
@@ -154,7 +160,7 @@
                     url: '',
                     explain: ''
                 };
-            },
+            }
         },
 
     };

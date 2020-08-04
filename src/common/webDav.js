@@ -20,28 +20,21 @@ const plugin = {
                       password: localStorage.getItem(window.k.wpassword)
                   }
               }
-              
-              // 如果信息不全就必须去填写 webDav信息 
-              // if (!localStorage.getItem(window.k.wurl) || !localStorage.getItem(window.k.wusername) || !localStorage.getItem(window.k.wpassword)) 
-              // {
-              //    throw new Error("填写webDav信息");
-              // }
-      
               myClient.client = createClient(
                   data.url, {
                       username: data.username,
                       password: data.password
                   }
               );
+              
+              var wdata;
+              
+              //判断这个文件是否已经存在
               if (await myClient.client.exists(window.k.wFileName) === false) {
-                  Notify({
-                      type: 'danger',
-                      message: '目录中不存在mypd.json文件'
-                  });
-                  throw '目录中不存在mypd.json文件';
+                  wdata = {};
+              }else{
+                  wdata = await myClient.get();
               }
-      
-              var wdata = await myClient.get();
       
               if (!wdata.list) {
                   wdata.list = [];

@@ -4,26 +4,35 @@
                 <van-cell v-for="(item,index) in uList" :key="'userList'+index" :style="cellStyle(index)" :title="item.title +' -> '+item.username" @click="toUserForm(index)">
                     <!-- 使用 right-icon 插槽来自定义右侧图标 -->
                     <template #right-icon>
-                        <van-icon name="delete" @click="del(index,item)" />
+                        <van-icon name="delete" @click.stop="del(index,item)" />
                     </template>
                 </van-cell>
+                
+                <van-empty v-if="uList==null||uList.length==0" description="empty" />
+                <center>
+                    <van-button icon="plus" type="primary" native-type="button" @click="add()" />
+                </center>
         </van-cell-group>
     </div>
+    
+    
 </template>
 
 <script>
     import MyMixin from '@/components/MyMixin.vue';
+    import { Empty } from 'vant';
     export default {
 
         name: '',
 
-        components: {},
+        components: {
+            [Empty.name]: Empty,
+        },
 
         mixins: [MyMixin],
 
         props: {
             thisFolder: {
-                type: Number,
                 default:0
             }
         },
@@ -62,8 +71,7 @@
         watch: {},
 
         created() {
-            //用于一开始默认选中第一个
-            this.toUserForm(0);
+       
         },
 
         mounted() {},
@@ -73,7 +81,7 @@
         methods: {
             toUserForm(index) {
                 this.thisIndex = index;
-                 this.$emit('toUserForm',index);
+                 this.EventBus.$emit('toUserForm',index);
             },
             save() {
                 this.wclient.put();
@@ -85,7 +93,7 @@
             add() {
                 //新增了这边先不选中菜单
                 this.thisIndex = -1;
-               this.$emit('toUserForm',-1);
+               this.EventBus.$emit('toUserForm',-1);
             },
             async del(index, item) {
                 var nook = await this.affirm();

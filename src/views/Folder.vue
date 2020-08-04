@@ -5,9 +5,9 @@
             <van-cell v-show="cellShowComputed(index)" :key="'folder'+index" :style="cellStyle(index)" :title="item.folder" @click="toUserList(index)">
               <!-- 使用 right-icon 插槽来自定义右侧图标 -->
               <template #right-icon>
-                <van-icon name="edit" @click="edit(index,item)" />
+                <van-icon name="edit" @click.stop="edit(index,item)" />
                 <div style="width: 10px;" />
-                <van-icon name="delete" @click="del(index,item)" />
+                <van-icon name="delete" @click.stop="del(index,item)" />
               </template>
             </van-cell>
             
@@ -73,7 +73,8 @@
       methods: {
           toUserList(index){
               this.thisIndex = index;
-              this.$emit('toUserList',index);
+              
+             this.EventBus.$emit('toUserList',index);
           }
           ,
           save(){
@@ -101,9 +102,10 @@
               //获取焦点
               let key = 'folder-van-field'+index;
               var el =  document.getElementById(key);
-              var t = el.getElementsByTagName("input");
-              el.focus();	
-              el.select();
+              setTimeout(function(){
+                  el.focus();
+                  el.select();
+              },100);
               this.cellShow.splice(index,1,false);
           },
           async del(index,item){
@@ -112,7 +114,7 @@
               if(nook)return;
               
               //判断是否文件夹下有账号
-              if(this.wlist[this.thisIndex].list==null||this.wlist[this.thisIndex].list.length==0){
+              if(this.wlist[index].list==null||this.wlist[index].list.length==0){
                   this.wlist.splice(index,1,);
                   this.wclient.put();
                   this.notifyOk();
