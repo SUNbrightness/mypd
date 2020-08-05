@@ -1,6 +1,6 @@
 mypd_code/.DS_Store
 mypd_code/node_modules
-mypd_code/dist
+mypd_package/dist
 # local env files
 mypd_code/.env.local
 mypd_code/.env.*.local

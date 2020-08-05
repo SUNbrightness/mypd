@@ -19,7 +19,6 @@
     "permissions" : {
         "Accelerometer" : {},
         "Audio" : {},
-        "Messaging" : {},
         "Cache" : {
             "description" : "管理应用缓存"
         },
@@ -27,7 +26,6 @@
         "Console" : {
             "description" : "跟踪调试输出日志"
         },
-        "Contacts" : {},
         "Device" : {},
         "Downloader" : {},
         "Events" : {
@@ -35,7 +33,6 @@
         },
         "File" : {},
         "Gallery" : {},
-        "Geolocation" : {},
         "Invocation" : {},
         "Orientation" : {},
         "Proximity" : {},
@@ -45,17 +42,10 @@
         "XMLHttpRequest" : {},
         "Zip" : {},
         "Barcode" : {},
-        "Maps" : {},
-        "Speech" : {},
         "Webview" : {},
         "NativeUI" : {},
         "Navigator" : {},
-        "NativeObj" : {},
-        "Push" : {},
-        "Share" : {},
-        "OAuth" : {},
-        "Payment" : {},
-        "Statistic" : {}
+        "NativeObj" : {}
     },
     "plus" : {
         "splashscreen" : {
@@ -63,7 +53,7 @@
             "waiting" : true
         },
         "statusbar" : {
-            "immersed" : "supportedDevice"
+            "immersed" : "none"
         },
         "popGesture" : "close", /*设置应用默认侧滑返回关闭Webview窗口，"none"为无侧滑返回功能，"hide"为侧滑隐藏Webview窗口。参考http://ask.dcloud.net.cn/article/102*/
         "runmode" : "liberate", /*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
@@ -82,30 +72,8 @@
                 "keystore" : "", /*Android应用打包使用的密钥库文件*/
                 "password" : "", /*Android应用打包使用密钥库中证书的密码*/
                 "aliasname" : "", /*Android应用打包使用密钥库中证书的别名*/
-                "permissions" : [
-                    "<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
-                    "<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
-                    "<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>",
-                    "<uses-permission android:name=\"android.permission.VIBRATE\"/>",
-                    "<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
-                    "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
-                    "<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
-                    "<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>",
-                    "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
-                    "<uses-permission android:name=\"android.permission.CAMERA\"/>",
-                    "<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>",
-                    "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>",
-                    "<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
-                    "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
-                    "<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
-                    "<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
-                    "<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
-                    "<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
-                    "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
-                    "<uses-feature android:name=\"android.hardware.camera\"/>",
-                    "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
-                    "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
-                ]
+                "permissions" : [],
+                "autoSdkPermissions" : false
             },
             "orientation" : [ "portrait-primary" ], /*应用支持的方向，portrait-primary：竖屏正方向；portrait-secondary：竖屏反方向；landscape-primary：横屏正方向；landscape-secondary：横屏反方向*/
             "icons" : {

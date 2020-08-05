@@ -1,0 +1,62 @@
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><link rel=icon href=./favicon.ico><title>mypd</title><link href=./css/chunk-442f87a3.b1f0e16b.css rel=prefetch><link href=./css/chunk-553df2e0.b1f0e16b.css rel=prefetch><link href=./css/chunk-7ec7a1da.5f579cac.css rel=prefetch><link href=./css/chunk-a79a73a8.291255a3.css rel=prefetch><link href=./css/chunk-f8371dea.dca4cd1a.css rel=prefetch><link href=./css/chunk-f92c80c0.43176b3c.css rel=prefetch><link href=./js/chunk-3647507e.43462c61.js rel=prefetch><link href=./js/chunk-442f87a3.98c0dd18.js rel=prefetch><link href=./js/chunk-553df2e0.831f5fe4.js rel=prefetch><link href=./js/chunk-5a9173ea.d28f4953.js rel=prefetch><link href=./js/chunk-6e95fbc2.aeace0e8.js rel=prefetch><link href=./js/chunk-7ec7a1da.d3e33cb0.js rel=prefetch><link href=./js/chunk-a79a73a8.8ee863ee.js rel=prefetch><link href=./js/chunk-f8371dea.771f9b0a.js rel=prefetch><link href=./js/chunk-f92c80c0.aca83793.js rel=prefetch><link href=./css/chunk-vendors.50f2225e.css rel=preload as=style><link href=./js/app.f13ffebe.js rel=preload as=script><link href=./js/chunk-vendors.22770b07.js rel=preload as=script><link href=./css/chunk-vendors.50f2225e.css rel=stylesheet></head><body><noscript><strong>We're sorry but mypd doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id=app></div><script src=./js/chunk-vendors.22770b07.js></script><script src=./js/app.f13ffebe.js></script></body><script>document.addEventListener('plusready', function() {
+				var webview = plus.webview.currentWebview();
+				plus.key.addEventListener('backbutton', function() {
+					webview.canBack(function(e) {
+						if (e.canBack) {
+							webview.back();
+						} else {
+							//webview.close(); //hide,quit
+							//plus.runtime.quit();
+							//首页返回键处理
+							//处理逻辑：1秒内，连续两次按返回键，则退出应用；
+							var first = null;
+							plus.key.addEventListener('backbutton', function() {
+								//首次按键，提示‘再按一次退出应用’
+								if (!first) {
+									first = new Date().getTime();
+									console.log('再按一次退出应用');
+									setTimeout(function() {
+										first = null;
+									}, 1000);
+								} else {
+									if (new Date().getTime() - first < 1500) {
+										plus.runtime.quit();
+									}
+								}
+							}, false);
+						}
+					})
+				});
+			});
+
+		<script>
+			document.addEventListener('plusready', function() {
+				var webview = plus.webview.currentWebview();
+				plus.key.addEventListener('backbutton', function() {
+					webview.canBack(function(e) {
+						if (e.canBack) {
+							webview.back();
+						} else {
+							//webview.close(); //hide,quit
+							//plus.runtime.quit();
+							//首页返回键处理
+							//处理逻辑：1秒内，连续两次按返回键，则退出应用；
+							var first = null;
+							plus.key.addEventListener('backbutton', function() {
+								//首次按键，提示‘再按一次退出应用’
+								if (!first) {
+									first = new Date().getTime();
+									console.log('再按一次退出应用');
+									setTimeout(function() {
+										first = null;
+									}, 1000);
+								} else {
+									if (new Date().getTime() - first < 1500) {
+										plus.runtime.quit();
+									}
+								}
+							}, false);
+						}
+					})
+				});
+			});</script></html>

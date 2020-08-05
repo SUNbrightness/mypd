@@ -4,6 +4,7 @@
 	"main": "dist/index.html",
 	"version": "0.0.1",
     "logo":"dist/favicon.png",
+    "author":"SUNbrightness",
 	"features": [
 		{
 		  "code": "mypd",
