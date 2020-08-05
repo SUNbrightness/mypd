@@ -1,22 +1,19 @@
-.DS_Store
-node_modules
-/dist
-
+mypd_code/.DS_Store
+mypd_code/node_modules
+mypd_code/dist
 # local env files
-.env.local
-.env.*.local
-
+mypd_code/.env.local
+mypd_code/.env.*.local
 # Log files
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-
+mypd_code/npm-debug.log*
+mypd_code/yarn-debug.log*
+mypd_code/yarn-error.log*
+mypd_code/pnpm-debug.log*
 # Editor directories and files
-.idea
-.vscode
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+mypd_code/.idea
+mypd_code/.vscode
+mypd_code/*.suo
+mypd_code/*.ntvs*
+mypd_code/*.njsproj
+mypd_code/*.sln
+mypd_code/*.sw?
