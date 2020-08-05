@@ -1,6 +1,6 @@
 <template>
     <div>
-        <van-nav-bar v-show="!searchShow" title="账号文件夹" left-text="返回" left-arrow @click-left="$router.go(-1)">
+        <van-nav-bar v-show="!searchShow" :title="metaTitle" left-text="返回" left-arrow @click-left="$router.go(-1)">
             <template #right>
                 <van-icon name="search" size="18" @click="searchShow=true" />
             </template>

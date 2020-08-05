@@ -5,9 +5,9 @@
             <van-cell v-show="cellShowComputed(index)" :key="'folder'+index" :style="cellStyle(index)" :title="item.folder" @click="toUserList(index)">
               <!-- 使用 right-icon 插槽来自定义右侧图标 -->
               <template #right-icon>
-                <van-icon name="edit" @click.stop="edit(index,item)" />
+                <van-icon class="cur" name="edit" @click.stop="edit(index,item)" />
                 <div style="width: 10px;" />
-                <van-icon name="delete" @click.stop="del(index,item)" />
+                <van-icon class="cur" name="delete" @click.stop="del(index,item)" />
               </template>
             </van-cell>
             

@@ -167,7 +167,5 @@
 </script>
 
 <style>
-    .cur{
-        cursor:pointer;
-    }
+   
 </style>

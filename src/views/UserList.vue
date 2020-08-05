@@ -4,7 +4,7 @@
                 <van-cell v-for="(item,index) in uList" :key="'userList'+index" :style="cellStyle(index)" :title="item.title +' -> '+item.username" @click="toUserForm(index)">
                     <!-- 使用 right-icon 插槽来自定义右侧图标 -->
                     <template #right-icon>
-                        <van-icon name="delete" @click.stop="del(index,item)" />
+                        <van-icon class="cur" name="delete" @click.stop="del(index,item)" />
                     </template>
                 </van-cell>
                 

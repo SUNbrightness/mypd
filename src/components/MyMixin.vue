@@ -10,13 +10,14 @@
         name: '',
         computed: { ...mapGetters([
                 'wlist',
-                'wdata'
+                'wdata',
+                'metaTitle',
             ])
         },
         methods: {
             ...mapMutations([
                 'setWdata',
-                 'setWlist'
+                 'setWlist',
             ]),
             notifyOk(mes="ok"){
                 this.$notify({ type: 'success', message: mes });
@@ -49,4 +50,7 @@
 </script>
 
 <style>
+    .cur{
+        cursor:pointer;
+    }
 </style>

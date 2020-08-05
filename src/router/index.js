@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
+import store from '../store'
 Vue.use(VueRouter)
 
 const routes = [
@@ -23,18 +23,27 @@ const routes = [
                 path: '/',
                 name: 'folder',
                 component: () => import('../views/Folder.vue'),
+                meta: {
+                  title: '账号文件夹'
+                },
             },
             {
                 path: '/user_form',
                 name: 'user_form',
                 component: () => import('../views/UserForm.vue'),
                 props: (route) => route.query,
+                meta: {
+                  title: '账号'
+                },
             },
             {
                 path: '/user_list',
                 name: 'user_list',
                 component: () => import('../views/UserList.vue'),
                 props: (route) => route.query,
+                meta: {
+                  title: '账号列表'
+                },
             },
             {
                 path: '/search_result',
@@ -56,8 +65,16 @@ const routes = [
     }
 ]
 
+
+
 const router = new VueRouter({
     routes
 })
+
+router.beforeEach((to, from, next) => {
+   store.commit('setMetaTitle',to.meta.title);
+   next();
+})
+
 
 export default router
