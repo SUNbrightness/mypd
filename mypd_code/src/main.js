@@ -37,11 +37,15 @@ Vue.use(VueClipboard)
 import '@/common/global.js';
 
 
-
-
+import VueCookies from 'vue-cookies'
+Vue.use(VueCookies)
+Vue.$cookies.config(-1);
 
 
 Vue.config.productionTip = false
+
+
+
 new Vue({
   store,
   router,

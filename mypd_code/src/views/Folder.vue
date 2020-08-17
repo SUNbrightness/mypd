@@ -44,14 +44,13 @@
       data() {return {
           addValue:'',
           cellShow:[],
-          thisIndex:0
       }},
     
       computed: {
           cellStyle:function(){
               this.cellShow;
               return function(index){
-                  return index==this.thisIndex?{
+                  return index==this.thisFolder?{
                       "background-color":"lightgray" 
                   }:{};
               };
@@ -72,11 +71,9 @@
     
       methods: {
           toUserList(index){
-              this.thisIndex = index;
-              
-             this.EventBus.$emit('toUserList',index);
-          }
-          ,
+            this.setThisFolder(index);
+            this.EventBus.$emit('toUserList');
+          },
           save(){
             this.wclient.put();
               for (var i = 0; i < this.wlist.length; i++) {
@@ -93,6 +90,8 @@
               this.wclient.put();
               this.addValue='';
               this.notifyOk();
+              //选中新增的
+              this.setThisFolder(this.wlist.length-1);
           },
           edit(index,item){
               this.editValue = item.folder;
@@ -117,6 +116,8 @@
               if(this.wlist[index].list==null||this.wlist[index].list.length==0){
                   this.wlist.splice(index,1,);
                   this.wclient.put();
+                  //选中倒数第二个
+                  this.setThisFolder(index-1);
                   this.notifyOk();
               }else{
                   this.notifyNo("该文件夹下还有账号不能删除 ");

@@ -9,17 +9,14 @@
         <van-search v-show="searchShow" v-model="searchValue" placeholder="请输入搜索账号" @input="searchChange" />
         <!-- 搜索展示内容 -->
         <search-result v-show="searchShow" :search-value="searchValue" />
-         <vue-router-page-turning>
              <!-- 如果不用路由缓存就会出现选中的list 没有回显 -->
           <keep-alive :exclude="['UserForm']">
         <router-view v-show="!searchShow" />
         </keep-alive>
-         </vue-router-page-turning>
     </div>
 </template>
 
 <script>
-     import VueRouterPageTurning from 'vue-router-page-turning';
     import MyMixin from '@/components/MyMixin.vue';
     import SearchResult from '@/components/SearchResult.vue';
     import {
@@ -29,15 +26,12 @@
         name: '',
         components: {
             SearchResult,
-            VueRouterPageTurning
         },
         mixins: [MyMixin],
         props: {},
         data() {
             return {
                 searchValue: '',
-                thisFolder: 0,
-                thisForm: -1,
                 //已经展示了搜索结果,需要隐藏nav
                 searchShow: false,
             }
@@ -47,29 +41,16 @@
         created() {
             //监听事件
             this.EventBus.$on('toUserList', target => {
-                this.thisFolder = target;
                 this.$router.push({
-                    path:'/user_list',
-                    query:{
-                        'thisFolder':this.thisFolder
-                    }
+                    path:'/user_list'
                 })
             });
 
             this.EventBus.$on('toUserForm', (uindex, findex) => {
                  this.searchShow=false;
-                this.thisForm = parseInt(uindex);
-                if (findex) {
-                    this.thisFolder = parseInt(findex);
-                }
-                
                   if(this.noCurrentPage('/user_form')){
                       this.$router.push({
-                          path:'/user_form',
-                          query:{
-                              'thisFolder':this.thisFolder,
-                               'thisForm':this.thisForm
-                          }
+                          path:'/user_form'
                       })
                   }
                 

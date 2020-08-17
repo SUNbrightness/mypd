@@ -53,9 +53,9 @@
                 });
 
                 //持久化webdav信息
-                localStorage.setItem(window.k.wurl, this.url);
-                localStorage.setItem(window.k.wusername, this.username);
-                localStorage.setItem(window.k.wpassword, this.password);
+                this.$cookies.set(window.k.wurl, this.url);
+                this.$cookies.set(window.k.wusername, this.username);
+                this.$cookies.set(window.k.wpassword, this.password);
 
                  this.$router.push('/');
             }

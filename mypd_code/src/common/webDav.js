@@ -15,9 +15,9 @@ const plugin = {
           init: async function(data) {
               if(!data){
                   data = {
-                      url: localStorage.getItem(window.k.wurl),
-                      username: localStorage.getItem(window.k.wusername),
-                      password: localStorage.getItem(window.k.wpassword)
+                      url:  vue.$cookies.get(window.k.wurl) ,
+                      username: vue.$cookies.get(window.k.wusername),
+                      password: vue.$cookies.get(window.k.wpassword)
                   }
               }
               myClient.client = createClient(

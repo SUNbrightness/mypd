@@ -77,15 +77,6 @@
 
         mixins: [MyMixin],
 
-        props: {
-            thisForm: {
-                default: 0
-            },
-            thisFolder: {
-                default: 0
-            },
-            
-        },
         data() {
             return {
                 userForm: this.getNullForm(),
@@ -101,7 +92,6 @@
         },
 
         created() {
-            console.log("init")
             this.initForm();
         },
 
@@ -144,13 +134,14 @@
                 if (this.thisForm == -1) {
                     this.wlist[this.thisFolder].list.push(this.userForm);
                     //新增完成，让userlist 选中新增的form
-                    this.EventBus.$emit('toUserForm', this.wlist[this.thisFolder].list.length - 1);
+                    this.setThisForm(this.wlist[this.thisFolder].list.length - 1);
                 } else {
                     //修改
                     this.wlist[this.thisFolder].list[this.thisForm] = this.userForm;
                 }
                 this.wclient.put();
                 this.notifyOk();
+                
             },
             getNullForm() {
                 return {

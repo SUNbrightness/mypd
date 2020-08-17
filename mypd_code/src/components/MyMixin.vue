@@ -12,12 +12,16 @@
                 'wlist',
                 'wdata',
                 'metaTitle',
+                'thisFolder',
+                'thisForm',
             ])
         },
         methods: {
             ...mapMutations([
                 'setWdata',
                  'setWlist',
+                 'setThisForm',
+                 'setThisFolder',
             ]),
             notifyOk(mes="ok"){
                 this.$notify({ type: 'success', message: mes });

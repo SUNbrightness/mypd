@@ -8,8 +8,8 @@
                     </template>
                 </van-cell>
                 
-                <van-empty v-if="uList==null||uList.length==0" description="empty" />
-                <center>
+                <van-empty v-if="uList==null||uList.length==0"  />
+                <center v-if="addFormShow">
                     <van-button icon="plus" type="primary" native-type="button" @click="add()" />
                 </center>
         </van-cell-group>
@@ -32,8 +32,8 @@
         mixins: [MyMixin],
 
         props: {
-            thisFolder: {
-                default:0
+            addFormShow:{
+                default:true
             }
         },
 
@@ -41,7 +41,6 @@
             return {
                 addValue: '',
                 cellShow: [],
-                thisIndex: 0,
             }
         },
 
@@ -55,7 +54,7 @@
             cellStyle: function() {
                 this.cellShow;
                 return function(index) {
-                    return index == this.thisIndex ? {
+                    return index == this.thisForm ? {
                         "background-color": "lightgray"
                     } : {};
                 };
@@ -80,8 +79,8 @@
 
         methods: {
             toUserForm(index) {
-                this.thisIndex = index;
-                 this.EventBus.$emit('toUserForm',index);
+                this.setThisForm(index);
+                this.EventBus.$emit('toUserForm');
             },
             save() {
                 this.wclient.put();
@@ -92,8 +91,8 @@
             },
             add() {
                 //新增了这边先不选中菜单
-                this.thisIndex = -1;
-               this.EventBus.$emit('toUserForm',-1);
+                this.setThisForm(-1);
+                this.EventBus.$emit('toUserForm');
             },
             async del(index, item) {
                 var nook = await this.affirm();
@@ -101,6 +100,8 @@
                 this.wlist[this.thisFolder].list.splice(index, 1, );
                 this.wclient.put();
                 this.notifyOk();
+                //不显示form
+                this.setThisForm(-2);
             }
         },
 
