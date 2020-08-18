@@ -5,6 +5,7 @@
 	"version": "0.1.2",
     "logo":"dist/favicon.png",
     "author":"SUNbrightness",
+    "preload": "preload.js",
 	"features": [
 		{
 		  "code": "mypd",

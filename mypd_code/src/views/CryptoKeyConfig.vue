@@ -35,8 +35,8 @@
         },
         methods: {
             onSubmit() {
-                //md5 + 盐加密
-                var cryptoKey = md5(this.password + window.k.cryptoKey);
+                //md5 + 盐
+                var cryptoKey = md5(this.password + undefined);
                 //如果是第一次设置密码则直接设置
                 if (!this.wdata.key) {
                     this.wdata.key = cryptoKey;

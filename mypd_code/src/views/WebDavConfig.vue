@@ -29,7 +29,6 @@
         methods: {
 
             async onSubmit() {
-
                 if (this.url.indexOf("http") == -1) {
                     this.$notify({
                         type: 'danger',
@@ -43,9 +42,6 @@
                     username: this.username,
                     password: this.password
                 });
-                var wdata = data;
-                this.setWdata(wdata);
-
 
                 this.$notify({
                     type: 'success',
@@ -53,11 +49,24 @@
                 });
 
                 //持久化webdav信息
-                this.$cookies.set(window.k.wurl, this.url);
-                this.$cookies.set(window.k.wusername, this.username);
-                this.$cookies.set(window.k.wpassword, this.password);
+                localStorage.setItem(window.k.wurl, this.url);
+                localStorage.setItem(window.k.wusername, this.username);
+                localStorage.setItem(window.k.wpassword, this.password);
 
-                 this.$router.push('/');
+
+                if(window.utools){
+                    window.utools.db.put({
+                      _id: window.k.wurl,
+                      data: {
+                          url: this.url,
+                          username: this.username,
+                          password: this.password
+                      }
+                    })
+                }
+
+
+                this.$router.push('/');
             }
         },
 

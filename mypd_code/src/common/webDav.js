@@ -14,18 +14,41 @@ const plugin = {
           client: null,
           init: async function(data) {
               if(!data){
-                  data = {
-                      url:  vue.$cookies.get(window.k.wurl) ,
-                      username: vue.$cookies.get(window.k.wusername),
-                      password: vue.$cookies.get(window.k.wpassword)
+                  if(window.utools){
+                      let udb =  window.utools.db.get(window.k.wurl);
+                      if(udb){
+                          console.log(udb)
+                          let udata = udb.data;
+                         data = {
+                             url:  udata.url ,
+                             username: udata.username,
+                             password: udata.password
+                         }
+                      }
+                  }else{
+                     data = {
+                         url:  localStorage.getItem(window.k.wurl) ,
+                         username: localStorage.getItem(window.k.wusername),
+                         password: localStorage.getItem(window.k.wpassword)
+                     } 
                   }
               }
-              myClient.client = createClient(
-                  data.url, {
-                      username: data.username,
-                      password: data.password
-                  }
-              );
+              
+              try {
+                  myClient.client = createClient(
+                      data.url, {
+                          username: data.username,
+                          password: data.password
+                      }
+                  );
+              } catch (e) {
+                  Notify({
+                      type: 'danger',
+                      message: '连接webDav异常,请检查账号密码和地址,是否正确'
+                  });
+                  throw e;
+              }
+              
               
               var wdata;
               

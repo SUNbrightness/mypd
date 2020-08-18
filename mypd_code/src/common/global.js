@@ -14,7 +14,7 @@ const myGlobal = {
     wpassword:"wpassword",
     wFileName:"mypd.json",
     wInfo:"winfo",
-    cryptokey:"cryptokey",
+    cryptoKey:"cryptokey",
     
 }
 bindToGlobal(myGlobal,"k");
