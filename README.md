@@ -21,7 +21,7 @@
 - 账号：
 - 应用密码: 
 ## pc端 
-在utools 插件中心 下载mypd 
+在utools 插件中心 下载mypd 或者在[](https://github.com/SUNbrightness/mypd/tags) 下载utools的插件安装包
 ## 手机端
 打开github 在tags中 下载已经打包好的安装程序
 [mypd](https://github.com/SUNbrightness/mypd/tags)
