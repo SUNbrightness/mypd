@@ -2,7 +2,7 @@
     <div>
         <van-nav-bar title="密码" />
         <van-form @submit="onSubmit">
-            <van-field ref="cryptoKeyConfigField" v-model="password" type="password" name="密码" label="密码" placeholder="加密key,必须牢记" :rules="[{ required: true, message: '请填写密码' }]" />
+            <van-field autocomplete="off" ref="cryptoKeyConfigField" v-model="password" type="password" name="密码" label="密码" placeholder="加密key,必须牢记" :rules="[{ required: true, message: '请填写密码' }]" />
             <div style="margin: 16px;">
                 <van-button round block type="info" native-type="submit">
                     提交

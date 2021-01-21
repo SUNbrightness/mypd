@@ -26,16 +26,24 @@
                 password: '',
             }
         },
+		created() {
+			//判断缓存中是否有数据有就获取并填充
+			var data = this.wclient.getUserData();
+			if(data){
+				this.url=data.url;
+				this.username=data.username;
+				this.password = data.password;
+			}
+		},
         methods: {
-
             async onSubmit() {
-                if (this.url.indexOf("http") == -1) {
-                    this.$notify({
-                        type: 'danger',
-                        message: '地址格式不对!'
-                    });
-                    return;
-                }
+                // if (this.url.indexOf("http") == -1) {
+                //     this.$notify({
+                //         type: 'danger',
+                //         message: '地址格式不对!'
+                //     });
+                //     return;
+                // }
                 //初始化  webDavclient 并且获取json数据
                 var data = await this.wclient.init({
                     url: this.url,

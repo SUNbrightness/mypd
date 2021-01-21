@@ -80,6 +80,7 @@
         methods: {
             toUserForm(index) {
                 this.setThisForm(index);
+				//抛出事件，phone组件接收
                 this.EventBus.$emit('toUserForm');
             },
             save() {
@@ -92,6 +93,7 @@
             add() {
                 //新增了这边先不选中菜单
                 this.setThisForm(-1);
+				//抛出事件，phone组件接收
                 this.EventBus.$emit('toUserForm');
             },
             async del(index, item) {

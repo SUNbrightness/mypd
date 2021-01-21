@@ -72,6 +72,7 @@
       methods: {
           toUserList(index){
             this.setThisFolder(index);
+			//抛出事件，phone组件接收
             this.EventBus.$emit('toUserList');
           },
           save(){

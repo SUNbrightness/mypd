@@ -2,7 +2,7 @@
 	"pluginName": "mypd",
 	"description": "基于坚果云存储，跨平台密码管理",
 	"main": "dist/index.html",
-	"version": "0.1.2",
+	"version": "0.2.0",
     "logo":"dist/favicon.png",
     "author":"SUNbrightness",
     "preload": "preload.js",

@@ -1,7 +1,14 @@
 <template>
     <div>
         <!-- 搜索的规则：账号中存在任何字符串 就展开搜索结果 -->
-        <van-search v-model="searchValue" placeholder="请输入搜索账号" @input="searchChange" />
+        <van-search :show-action="true" v-model="searchValue" placeholder="请输入搜索账号或标题" @input="searchChange" >
+		<template #action>
+			 <router-link to="/web_dav_config">
+				 <van-icon name="setting-o"  />
+			 </router-link>
+			
+		</template>
+		</van-search>
         <div class="flex-box">
             <template v-if="!searchShow">
                 <div class="van-hairline--surround" style="width: 30vw;">

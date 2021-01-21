@@ -1,12 +1,15 @@
 <template>
     <div>
-        <van-nav-bar v-show="!searchShow" :title="metaTitle" left-text="返回" left-arrow @click-left="$router.go(-1)">
-            <template #right>
-                <van-icon name="search" size="18" @click="searchShow=true" />
+        <van-nav-bar v-show="!searchShow" :title="metaTitle" left-text="返回" left-arrow @click-left="navLeftClick">
+            <template v-if="$route.path=='/phone'" #left>
+                <van-icon name="setting-o" />
             </template>
+			<template #right>
+			    <van-icon name="search" size="18" @click="searchShow=true" />
+			</template>
         </van-nav-bar>
         
-        <van-search v-show="searchShow" v-model="searchValue" placeholder="请输入搜索账号" @input="searchChange" />
+        <van-search v-show="searchShow" v-model="searchValue" placeholder="请输入搜索账号或标题" @input="searchChange" />
         <!-- 搜索展示内容 -->
         <search-result v-show="searchShow" :search-value="searchValue" />
              <!-- 如果不用路由缓存就会出现选中的list 没有回显 -->
@@ -45,9 +48,11 @@
                     path:'/user_list'
                 })
             });
-
-            this.EventBus.$on('toUserForm', (uindex, findex) => {
+			//用户选择了某条账号
+            this.EventBus.$on('toUserForm', target => {
+				//隐藏搜索框
                  this.searchShow=false;
+				 //如果当前不是user_for页面那么久跳
                   if(this.noCurrentPage('/user_form')){
                       this.$router.push({
                           path:'/user_form'
@@ -73,7 +78,15 @@
            },
            noCurrentPage(url){
                return this.$router.history.current.path!=url;
-           }
+           },
+		   navLeftClick(){
+			   //如果当前路由是/phone那么久跳转到配置页面
+			   if(this.$route.path=='/phone'){
+				   this.$router.push('/web_dav_config');
+			   }else{
+				   this.$router.go(-1);
+			   }
+		   }
         }
     };
 </script>

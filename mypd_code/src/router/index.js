@@ -16,7 +16,6 @@ const routes = [
         component: () => import('../views/Index.vue')
     },{
         path: '/phone',
-        name: 'phone',
         component: () => import('../views/Phone.vue'),
         children:[
             {

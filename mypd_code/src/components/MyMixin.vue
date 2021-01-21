@@ -24,7 +24,7 @@
                  'setThisFolder',
             ]),
             notifyOk(mes="ok"){
-                this.$notify({ type: 'success', message: mes });
+                this.$notify({ type: 'success', message: mes,duration: 300});
             },notifyNo(mes="error"){
                 
                 this.$notify({ type: 'danger', message: mes });

@@ -12,28 +12,32 @@ const plugin = {
   install(vue, options = {}) {
       const myClient = {
           client: null,
+		  getUserData:function(){
+			  var data = {};
+			  if(window.utools){
+			      let udb =  window.utools.db.get(window.k.wurl);
+			      if(udb){
+			          let udata = udb.data;
+			         data = {
+			             url:  udata.url ,
+			             username: udata.username,
+			             password: udata.password
+			         }
+			      }
+			  }else{
+			     data = {
+			         url:  localStorage.getItem(window.k.wurl) ,
+			         username: localStorage.getItem(window.k.wusername),
+			         password: localStorage.getItem(window.k.wpassword)
+			     } 
+			  }
+			  return data;
+		  },
           init: async function(data) {
+			  //尝试从缓存中获取用户数据
               if(!data){
-                  if(window.utools){
-                      let udb =  window.utools.db.get(window.k.wurl);
-                      if(udb){
-                          console.log(udb)
-                          let udata = udb.data;
-                         data = {
-                             url:  udata.url ,
-                             username: udata.username,
-                             password: udata.password
-                         }
-                      }
-                  }else{
-                     data = {
-                         url:  localStorage.getItem(window.k.wurl) ,
-                         username: localStorage.getItem(window.k.wusername),
-                         password: localStorage.getItem(window.k.wpassword)
-                     } 
-                  }
+                 data = this.getUserData();
               }
-              
               try {
                   myClient.client = createClient(
                       data.url, {
